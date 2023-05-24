@@ -1,0 +1,297 @@
+
+//7 SEGMENTOS
+#define LED_B 13//DEREHA ABAJO
+#define LED_C 12//DERECHA ARRIBA
+#define LED_A 11 // ARRIBA
+#define LED_F 10 // IZQUIERA ARRIBA
+#define LED_G 9//EL DE EN MEDIO
+#define LED_E 8//IZQUIERDA ABAJO
+#define LED_D 7//ABAJO
+
+//LEDS
+#define LED_VERDE 6
+#define LED_ROJO 5
+
+//PULSADORES
+#define BOTON_SUBIDA A1
+#define BOTON_BAJADA A2
+#define BOTON_PARADA A3
+
+//MOTOR
+#define ENTRADA_1 A4
+#define ENTRADA_2 A5
+#define ACTIVAR A0
+
+int piso;
+int acumulador = 0;
+  
+void setup()
+{
+  pinMode(LED_B,OUTPUT);
+  pinMode(LED_C,OUTPUT);
+  pinMode(LED_A,OUTPUT);
+  pinMode(LED_F,OUTPUT);
+  pinMode(LED_G,OUTPUT);
+  pinMode(LED_E,OUTPUT);
+  pinMode(LED_D,OUTPUT);
+  pinMode(LED_VERDE,OUTPUT);
+  pinMode(LED_ROJO,OUTPUT);
+  pinMode(BOTON_SUBIDA,INPUT);
+  pinMode(BOTON_BAJADA,INPUT);
+  pinMode(BOTON_PARADA,INPUT);
+  pinMode(ENTRADA_1,OUTPUT);
+  pinMode(ENTRADA_2,OUTPUT);
+  pinMode(ACTIVAR,OUTPUT);
+  digitalWrite(ACTIVAR,HIGH);
+  Serial.begin(9600);
+}
+
+
+void loop()
+{
+  
+  int presiono_1 = digitalRead(BOTON_SUBIDA);
+  int presiono_2 = digitalRead(BOTON_BAJADA);
+  int presiono_3 = digitalRead(BOTON_PARADA);
+  
+  if(presiono_3 == 0)
+  {  
+  
+    if(presiono_1 == 1)
+    {
+      
+      digitalWrite(LED_VERDE,HIGH);
+      digitalWrite(ENTRADA_1,HIGH);
+      digitalWrite(ENTRADA_2,LOW);
+      piso = 1;
+      delay(3000);
+      digitalWrite(LED_VERDE,LOW);
+      digitalWrite(ENTRADA_1,LOW);
+      digitalWrite(ENTRADA_2,LOW);
+      acumulador = acumulador + (piso);
+    }
+
+    if(presiono_2 == 1)
+    {
+      digitalWrite(LED_VERDE,HIGH);
+      digitalWrite(ENTRADA_1,LOW);
+      digitalWrite(ENTRADA_2,HIGH);
+      piso = -1;
+      delay(3000);
+      digitalWrite(LED_VERDE,LOW);
+      digitalWrite(ENTRADA_1,LOW);
+      digitalWrite(ENTRADA_2,LOW);
+      acumulador = acumulador + (piso);
+    }
+    
+    if(acumulador < 0)
+    {
+      acumulador = 0;
+    }
+    
+    if(acumulador > 9)
+    {
+      acumulador = 9;
+    }
+   
+    
+    switch(acumulador)
+    {
+      case 0:
+      	CERO();
+      break;
+      
+      case 1:
+      	UNO();
+      break;
+      
+      case 2:
+      	DOS();
+      break;
+      
+      case 3:
+      	TRES();
+      break;
+      
+      case 4:
+      	CUATRO();
+      break;
+      
+      case 5:
+      	CINCO();
+      break;
+      
+      case 6:
+      	SEIS();
+      break;
+      
+      case 7:
+      	SIETE();
+      break;
+      
+      case 8:
+      	OCHO();
+      break;
+      
+      case 9:
+      	NUEVE();
+      break;
+    }
+  Serial.println(acumulador);
+  }
+  else
+  {
+    digitalWrite(LED_VERDE,LOW);
+    digitalWrite(ENTRADA_1,LOW);
+    digitalWrite(ENTRADA_2,LOW);
+    digitalWrite(LED_ROJO,HIGH);
+    APAGADO();
+    if(presiono_3 == 1)
+    {
+      digitalWrite(LED_ROJO,LOW);
+    }
+  } 
+  
+}
+
+
+
+//DISPLAY APAGADO
+void APAGADO()
+  {
+    digitalWrite(LED_B, LOW);
+    digitalWrite(LED_A, LOW);
+    digitalWrite(LED_F, LOW);
+    digitalWrite(LED_G, LOW);
+    digitalWrite(LED_C, LOW);
+    digitalWrite(LED_D, LOW);
+    digitalWrite(LED_E, LOW);
+  
+  }
+  //CERO
+void CERO()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, HIGH);
+    digitalWrite(LED_G, LOW);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, HIGH);
+    delay(1000);
+  } 
+    
+  
+  //UNO
+void UNO()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, LOW);
+    digitalWrite(LED_F, LOW);
+    digitalWrite(LED_G, LOW);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, LOW);
+    digitalWrite(LED_E, LOW);
+    delay(1000);
+  }
+  //DOS
+void DOS()
+  {
+    digitalWrite(LED_B, LOW);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, LOW);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, HIGH);
+    delay(1000);
+  }  
+  
+  //TRES
+void TRES()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, LOW);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, LOW);
+    delay(1000);
+  }  
+  
+  //CUATRO
+void CUATRO()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, LOW);
+    digitalWrite(LED_F, HIGH);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, LOW);
+    digitalWrite(LED_E, LOW);
+    delay(1000);
+  }
+  
+  //CINCO
+void CINCO()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, HIGH);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, LOW);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, LOW);
+    delay(1000);
+  }
+  //SEIS
+void SEIS()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, HIGH);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, LOW);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, HIGH);
+    delay(1000);
+  }
+
+  //SIETE
+void SIETE()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, LOW);
+    digitalWrite(LED_G, LOW);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, LOW);
+    digitalWrite(LED_E, LOW);
+    delay(1000);
+  }
+
+  //OCHO
+void OCHO()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, HIGH);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, HIGH);
+    delay(1000);
+  }
+  //NUEVE
+void NUEVE()
+  {
+    digitalWrite(LED_B, HIGH);
+    digitalWrite(LED_A, HIGH);
+    digitalWrite(LED_F, HIGH);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_C, HIGH);
+    digitalWrite(LED_D, HIGH);
+    digitalWrite(LED_E, LOW);
+    delay(1000);
+}
