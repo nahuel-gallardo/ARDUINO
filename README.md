@@ -58,4 +58,6 @@ Link del proyecto
 ___________________________________________________________________________________________________________________
 https://www.tinkercad.com/things/5Eu35WJHPGd-nahuel-gallardo1b-proyecto-domiciliario-para-parcial/editel?sharecode=7RycqCGOTAwI0Xi7EUitIe4qjQKl1Z5crGVPk3R_xsY
 
-
+lenguaje  del programa
+_________________________________________
+C++
